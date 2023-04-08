@@ -3,20 +3,22 @@ A backup server for Linux using rsync. Targeted at backing up linux web servers.
 
 ## Features
 
-- Uses SSH keys to securly connect to the backup targets.
+- Uses SSH keys to securly connect to backup targets.
 - Can back up multiple target servers, multiple times per day. 
-- Configurable pre-backup and post-backup jobs. Comes with an included mysqldump script for backing up MySQL or MariaDB databases.
+- Configurable pre-backup and post-backup jobs. Comes with an included remote mysqldump script for backing up MySQL or MariaDB databases.
 - Keeps a configurable history of backups.
 - Uses the rsync hardlink method to save space. 
-- Every backup is a full backup. No need to full then incremental backups and restores.
+- Every backup is a full backup. No need to alternate full and incremental backups and restores.
 
-Quaffa is a rewrite of affa backup script by Michael Weinberger originally written in perl for Linux SME Server.
+Quaffa is a rewrite of affa backup by Michael Weinberger originally written in perl for Linux SME Server.
 
 ## Prerequisites
 
-- A linux server (tested on Ubuntu 20.04 and CentOS 7. Any modern Linux should work with minimal modifications.
+- A linux server (tested on Ubuntu 20.04 and CentOS 7). Any modern Linux should work with minimal modifications.
 - PHP (tested with 5.4 and 7.4).
 - Composer
+- SSH access to the target server
+#### Install the prerequisits
 On RedHat / CentOS based systems:
 ```
 yum install php composer
@@ -25,7 +27,6 @@ On Debian and Ubuntu based systems:
 ```
 apt update; apt install php composer
 ```
-## Quick start
 
 ### Installation
 
@@ -44,8 +45,8 @@ Finally, run the quaffa setup command to copy the necessary files and folders to
 
 ### Backup localhost
 
-Backup jobs are defined in directory `/etc/quaffa` in files with the `.yaml` extention.
-The file localhost.yaml defines a job named localhost that backs up the directories /etc, /root and /var/www at 3 am.
+Backup jobs are defined in the directory `/etc/quaffa` in files with the `.yaml` extention.
+The file `localhost.yaml` defines a job named localhost that backs up the directories /etc, /root and /var/www at 3 am.
 Open this file with your favorite editor. Find the line `Enabled: false` and change it to `Enabled: true` then save the file.
 
 A full list of options available for a job configuration file can be seen in `_defaultQuaffaConfig.yaml`. Any option not present in the job configuration file is read from this file. You can edit this file to set your own defaults.
