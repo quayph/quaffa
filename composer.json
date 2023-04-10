@@ -1,0 +1,13 @@
+{
+    "require": {
+        "tomaj/hermes": "^4.0",
+        "vanilla/garden-cli": "^3.1",
+        "monolog/monolog": "^2.9",
+        "symfony/yaml": "^5.4",
+        "nesbot/carbon": "^2.66",
+        "phpmailer/phpmailer": "^6.8",
+        "rakibtg/sleekdb": "^2.15",
+        "dekor/php-array-table": "^2.0",
+        "codedungeon/php-cli-colors": "~1.0"
+    }
+}

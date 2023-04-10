@@ -1,0 +1,121 @@
+#!/usr/bin/env php
+<?php
+/*                    __  __      
+                    / _|/ _|     
+   __ _ _   _  __ _| |_| |_ __ _ 
+  / _` | | | |/ _` |  _|  _/ _` |
+ | (_| | |_| | (_| | | | || (_| |
+  \__, |\__,_|\__,_|_| |_| \__,_|
+     | |                         
+     |_|                          
+
+ An rsync based backup system for 
+ Linux servers
+*/    
+
+
+namespace quayph\quaffa;
+
+use Carbon\Carbon;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use quayph\quaffa\actions\Backup;
+use quayph\quaffa\actions\Sendkey;
+use quayph\quaffa\actions\Kill;
+use quayph\quaffa\actions\Killall;
+use quayph\quaffa\actions\Status;
+use quayph\quaffa\actions\Updatecron;
+use quayph\quaffa\actions\History;
+use quayph\quaffa\config\AppConfig;
+use quayph\quaffa\config\Config;
+
+echo "----------------------------------------------\n";
+define('DS', DIRECTORY_SEPARATOR);
+define('APPDIR', __DIR__.DS.'..');
+
+require_once APPDIR.DS.'vendor'.DS.'autoload.php';
+require_once APPDIR.DS.'lib'.DS.'actions'.DS.'AbstractAction.php';
+require_once APPDIR.DS.'lib'.DS.'actions'.DS.'AbstractJobAction.php';
+require_once APPDIR.DS.'lib'.DS.'actions'.DS.'Backup.php';
+require_once APPDIR.DS.'lib'.DS.'actions'.DS.'Sendkey.php';
+require_once APPDIR.DS.'lib'.DS.'actions'.DS.'Kill.php';
+require_once APPDIR.DS.'lib'.DS.'actions'.DS.'Killall.php';
+require_once APPDIR.DS.'lib'.DS.'actions'.DS.'Status.php';
+require_once APPDIR.DS.'lib'.DS.'actions'.DS.'Updatecron.php';
+require_once APPDIR.DS.'lib'.DS.'actions'.DS.'History.php';
+// require_once APPDIR.DS.'lib/AppConfigManager.php';
+require_once APPDIR.DS.'lib'.DS.'CliParser.php';
+require_once APPDIR.DS.'lib'.DS.'ConfigCheck.php';
+require_once APPDIR.DS.'lib'.DS.'JobLockManager.php';
+require_once APPDIR.DS.'lib'.DS.'ReportsManager.php';
+require_once APPDIR.DS.'lib'.DS.'config'.DS.'AppConfig.php';
+require_once APPDIR.DS.'lib'.DS.'config'.DS.'Config.php';
+require_once APPDIR.DS.'lib'.DS.'config'.DS.'DefaultJobConfig.php';
+require_once APPDIR.DS.'lib'.DS.'JobConfigManager.php';
+require_once APPDIR.DS.'lib'.DS.'CronManager.php';
+require_once APPDIR.DS.'lib'.DS.'OutputHelper.php';
+
+
+try {
+    $context = [
+       'started' => Carbon::now(date_default_timezone_get()),
+       'argv' => $_SERVER['argv'],
+    ];
+
+    try {
+        ConfigCheck::check(true);
+        AppConfig::setup();
+
+        $logLevel = constant("Monolog\Logger::".AppConfig::$logLevel);
+        if (in_array('--debug', $argv)) {
+            $logLevel = Logger::DEBUG;
+        }
+        $globalLogger = new Logger('_global');
+        $globalLogger->pushHandler(new StreamHandler(
+            Config::$logDir.DS.Config::$globalLogFile, $logLevel));
+        $globalLogger->info("STARTED with ".join(' ', $_SERVER['argv']));
+    }
+    catch (\Exception $ex){
+        echo $ex->__toString();
+        echo "\nThis error has not been logged.\n";
+        die;
+    }
+
+    $context['args'] = CliParser::Parse();
+    switch ($context['args']->getCommand()) {
+        case 'backup':
+            new Backup($context);
+            break;
+
+        case 'sendkey':
+            $s = new Sendkey($context);
+                break;
+
+        case 'kill':
+            $s = new Kill($context);
+            break;
+
+        case 'killall':
+            $s = new Killall($context);
+            break;
+
+        case 'status':
+            $s = new Status($context);
+            break;
+
+        case 'updatecron':
+            $s = new Updatecron($context);
+            break;
+                
+        case 'history':
+            $s = new History($context);
+            break;
+    }
+}
+catch (\Exception $e) {
+    $msg = $e->__toString();
+    fwrite(STDERR, $msg.' at '.date('h:i:s'));
+    $globalLogger->error($msg, $context);
+    die;
+}
+$globalLogger->info('Finished ok', $context);

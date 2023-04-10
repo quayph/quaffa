@@ -1,0 +1,44 @@
+---
+#automountDevice: ''
+#automountOptions: ''
+#automountPoint: ''
+#autoUnmount: ''
+bandwidthLimit: 0 # Zero for no limit
+connectionCheckTimeout: 120 # seconds
+debug: false
+description: ''
+diskSpaceWarn: 85 # percent
+extraEmailNotifications: []
+exclude: []
+include: []
+jobName: ''
+keepDaily: 7
+keepMonthly: 12
+keepScheduled: 1
+keepWeekly: 4
+keepYearly: 2
+localNice: 0 # -20 = top priority, -19 = lowest priority
+postJobCommand: [] # name(s) of script(s) in the scripts folder. Scripts must be executable.
+postJobCommandRemote: []
+preJobCommand: []
+preJobCommandRemote: []
+remoteAuthorizedKeysFile: "/root/.ssh/authorized_keys"
+remoteHostName: ''
+remoteNice: 0
+remoteNiceBinary: "/bin/nice"
+remoteRsyncBinary: "/usr/bin/rsync"
+remoteUser: root
+#retryAfter: 900 # seconds
+#retryAttempts: 4
+#retryNotification: false
+rootDir: "/var/quaffa"
+rsyncCompress: true
+rsyncInplace: true
+#rsyncOptions: '' 
+rsyncRemote: "/usr/bin/rsync"
+rsyncTimeout: 900 # seconds
+sshOpts: ''
+sshPort: 22
+enabled: true
+timeSchedule:
+- '2230'

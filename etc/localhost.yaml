@@ -1,0 +1,11 @@
+---
+# Backup localhost
+# This is a minimal sample file for you to extend. See _defaultJobConfig.yaml for all available options.
+include: 
+- '/etc'
+- '/root'
+jobName: 'localhost'
+enabled: false
+remoteHostName: 'localhost'
+timeSchedule:
+- '0300'

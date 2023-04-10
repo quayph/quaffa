@@ -1,0 +1,13 @@
+---
+adminEmail: ''
+emailOnSuccess: false
+emailFromAddress: ''
+emailFromName: ''
+globalDisable: false
+logLevel: DEBUG # DEBUG | INFO | NOTICE | WARNING | ERROR
+smtp: false
+smtpServer: ''
+smtpUser: ''
+smtpPasswd: ''
+smtpSecure: 'tls'
+smtpPort: '587'

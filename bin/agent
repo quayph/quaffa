@@ -1,0 +1,18 @@
+#!/usr/bin/env php
+<?php
+namespace Quayph\Quaffa;
+
+define('DS', DIRECTORY_SEPARATOR);
+define('APPDIR', __DIR__.DS.'..');
+
+require_once APPDIR.DS.'vendor'.DS.'autoload.php';
+require_once APPDIR.DS.'lib'.DS.'config'.DS.'AppConfig.php';
+require_once APPDIR.DS.'lib'.DS.'config'.DS.'Config.php';
+require_once APPDIR.DS.'lib'.DS.'config'.DS.'DefaultJobConfig.php';
+require_once APPDIR.DS.'lib'.DS.'BackupAgent.php';
+require_once APPDIR.DS.'lib'.DS.'JobLockManager.php';
+require_once APPDIR.DS.'lib'.DS.'ReportsManager.php';
+require_once APPDIR.DS.'lib'.DS.'JobConfigManager.php';
+require_once APPDIR.DS.'lib'.DS.'NotificationHelper.php';
+
+new BackupAgent();

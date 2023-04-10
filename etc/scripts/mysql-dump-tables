@@ -1,0 +1,15 @@
+#!/bin/sh
+
+mkdir -p /tmp/MySQL-Dumps
+chmod 700 /tmp/MySQL-Dumps
+for db in $(mysql -BNre "show databases;")
+do
+    if [ "$db" = "information_schema" ]  
+    then
+        continue      
+    fi
+    
+    mysqldump --add-drop-table --single-transaction -QB "$db" -r /tmp/MySQL-Dumps/"$db".dump || exit 1
+	chmod 400 /tmp/MySQL-Dumps/"$db".dump
+done
+exit 0
