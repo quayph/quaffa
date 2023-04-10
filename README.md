@@ -38,9 +38,9 @@ cd /opt/quaffa
 composer install quayph/quaffa
 chmod 0700 quaffa
 ```
-Finally, run the quaffa setup command to copy the necessary files and folders to their respective destinations.
+Finally, run the following command to copy the necessary files and folders to their respective destinations.
 ```
-./quaffa setup
+bin/quaffa status
 ```
 
 ### Backup localhost
