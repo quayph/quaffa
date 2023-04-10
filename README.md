@@ -86,12 +86,11 @@ timeSchedule:
 
 Test the connection `quaffa check-cnx example-job`.
 
-In order to allow the included mysql-dump-tables script to function you must allow automated mysql login for your linux root user. Log onto your remote server and create the file /root/.my.cnf. The content of the file should be 
+In order to allow the included mysql-dump-tables script to function you must allow automated mysql login for your linux user. Log onto your remote server and create the file /root/.my.cnf . The content of the file should be, replacing xxxxxxxxxxxx is the MySQL root user's password. 
 ```
 [client]
 password=xxxxxxxxxxxx
 ```
-where xxxxxxxxxxxx is the MySQL root user's password.
 
 Test the backup with `quaffa backup example-job`
 
