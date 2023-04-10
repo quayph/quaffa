@@ -1,6 +1,6 @@
-# quaffa
+# Quaffa
 A backup server for Linux using rsync. Targeted at backing up linux web servers.
-
+#### This is an alpha version. Some work may be required to get it working.
 ## Features
 
 - Uses SSH keys to securly connect to backup targets.
@@ -15,7 +15,7 @@ Quaffa is a rewrite of affa backup by Michael Weinberger originally written in p
 ## Prerequisites
 
 - A linux server (tested on Ubuntu 20.04 and CentOS 7). Any modern Linux should work with minimal modifications.
-- PHP (tested with 5.4 and 7.4).
+- PHP (tested with 7.4).
 - Composer
 - SSH access to the target server
 #### Install the prerequisits
