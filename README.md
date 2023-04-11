@@ -24,7 +24,6 @@ Quaffa is a rewrite of affa backup by Michael Weinberger originally written in p
 - Composer
 - root SSH access to the target server
 
-### Install the prerequisits
 On RedHat / CentOS based systems:  
 `yum install php composer`
 
