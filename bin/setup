@@ -1,0 +1,51 @@
+#!/usr/bin/env php
+<?php
+
+namespace quayph\quaffa;
+
+use quayph\quaffa\config\AppConfig;
+use quayph\quaffa\config\Config;
+use Codedungeon\PHPCliColors\Color;
+
+define('DS', DIRECTORY_SEPARATOR);
+define('APPDIR', realpath(__DIR__.DS.'..'));
+
+require_once APPDIR.DS.'vendor'.DS.'autoload.php';
+require_once APPDIR.DS.'lib'.DS.'actions'.DS.'AbstractAction.php';
+require_once APPDIR.DS.'lib'.DS.'actions'.DS.'AbstractJobAction.php';
+require_once APPDIR.DS.'lib'.DS.'actions'.DS.'Backup.php';
+require_once APPDIR.DS.'lib'.DS.'actions'.DS.'Sendkey.php';
+require_once APPDIR.DS.'lib'.DS.'actions'.DS.'Kill.php';
+require_once APPDIR.DS.'lib'.DS.'actions'.DS.'Killall.php';
+require_once APPDIR.DS.'lib'.DS.'actions'.DS.'Status.php';
+require_once APPDIR.DS.'lib'.DS.'actions'.DS.'Updatecron.php';
+require_once APPDIR.DS.'lib'.DS.'actions'.DS.'History.php';
+// require_once APPDIR.DS.'lib/AppConfigManager.php';
+require_once APPDIR.DS.'lib'.DS.'CliParser.php';
+require_once APPDIR.DS.'lib'.DS.'ConfigCheck.php';
+require_once APPDIR.DS.'lib'.DS.'JobLockManager.php';
+require_once APPDIR.DS.'lib'.DS.'ReportsManager.php';
+require_once APPDIR.DS.'lib'.DS.'config'.DS.'AppConfig.php';
+require_once APPDIR.DS.'lib'.DS.'config'.DS.'Config.php';
+require_once APPDIR.DS.'lib'.DS.'config'.DS.'DefaultJobConfig.php';
+require_once APPDIR.DS.'lib'.DS.'JobConfigManager.php';
+require_once APPDIR.DS.'lib'.DS.'CronManager.php';
+require_once APPDIR.DS.'lib'.DS.'OutputHelper.php';
+
+echo "
+                     __  __      
+                    / _|/ _|     
+   __ _ _   _  __ _| |_| |_ __ _ 
+  / _` | | | |/ _` |  _|  _/ _` |
+ | (_| | |_| | (_| | | | || (_| |
+  \__, |\__,_|\__,_|_| |_| \__,_|
+     | |                         
+     |_|                          
+
+ An rsync based backup system for Linux servers
+";
+`chmod 0770 bin/quaffa`;
+ConfigCheck::check(false);
+AppConfig::setup();
+CronManager::updateCron([]);
+echo "\n".Color::BOLD_WHITE.Color::BG_GREEN." Installation complete ".Color::RESET."\n";

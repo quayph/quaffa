@@ -1,4 +1,22 @@
 {
+    "name": "quayph/quaffa",
+    "description": "An rsync based remote backup program for linux servers.",
+    "version": "0.0.2",
+    "type": "project",
+    "keywords": ["rsync", "backup",  "ssh"],
+    "time": "2023-04-11",
+    "licence": "MIT",
+    "authors": [
+        {
+            "name": "Keith Slater", 
+            "email": "quayph@gmail.com"
+        }
+    ],
+    "autoload":{
+        "psr-4": { 
+            "Quayph\\quaffa\\": "lib/"
+        }
+    },
     "require": {
         "tomaj/hermes": "^4.0",
         "vanilla/garden-cli": "^3.1",
@@ -9,5 +27,13 @@
         "rakibtg/sleekdb": "^2.15",
         "dekor/php-array-table": "^2.0",
         "codedungeon/php-cli-colors": "~1.0"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "@quaffa-setup"
+        ],
+        "quaffa-setup" : [
+            "@php bin/setup"
+        ]
     }
 }
